@@ -61,4 +61,5 @@
 !source "code/sub_sprite_ship.asm"
 !source "code/sub_keyboard.asm"
 !source "code/sub_joystick.asm"
+!source "code/sub_music.asm"
 
