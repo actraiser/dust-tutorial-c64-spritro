@@ -1,11 +1,11 @@
-;============================================================
-;    some initialization and interrupt redirect setup
-;============================================================
+;==================================================================
+; main.asm triggers all sub routines and runs the Interrupt Routine
+;==================================================================
 
            sei         ; set interrupt disable flag
             
            jsr clear_screen     ; clear the screen
-           jsr init_sid     ; init music routine now
+           jsr init_sid         ; init music routine 
 
            ldy #$7f    ; $7f = %01111111
            sty $dc0d   ; Turn off CIAs Timer interrupts ($7f = %01111111)
@@ -20,8 +20,8 @@
            and #$7f    ; it is basically the 9th Bit for $d012
            sta $d011   ; we need to make sure it is set to zero for our intro.
 
-           lda #<irq   ; point IRQ Vector to our custom irq routine
-           ldx #>irq 
+           lda #<top   ; point IRQ Vector to our custom irq routine
+           ldx #>top 
            sta $314    ; store in $314/$315
            stx $315   
 
@@ -33,12 +33,33 @@
 
 
 ;============================================================
-;    custom interrupt routine
+;    Our first custom interrupt routines follow
+;    everything which must run 60 times per second 
 ;============================================================
 
-irq        dec $d019        ; acknowledge IRQ / clear register for next interrupt
+top        dec $d019        ; acknowledge IRQ / clear register for next interrupt
+           
+           lda #$9c    ; trigger bottom interrupt at raster line 156
+           sta $d012
+
+           lda $09          ; set background color for upper half of the scren
+           sta $d021
+
+           lda #<bottom   ; point IRQ Vector to our next irq routine
+           ldx #>bottom
+           sta $314    ; store in $314/$315
+           stx $315   
 
            jsr play_sid         ; jump to play music routine
 
+
+bottom     dec $d019        ; acknowledge IRQ / clear register for next interrupt
+           lda $06              ; set background color for lower half of the screen
+           sta $d021
+           
+           lda #<top   ; point IRQ Vector to our next irq routine
+           ldx #>top
+           sta $314    ; store in $314/$315
+           stx $315   
 
            jmp $ea81        ; return to kernel interrupt routine

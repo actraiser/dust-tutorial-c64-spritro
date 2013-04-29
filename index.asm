@@ -37,7 +37,6 @@
 ;============================================================
 
 !source "code/init_symbols.asm"
-!source "code/init_sprites.asm"
 
 ;============================================================
 ; one-time called sub outines
