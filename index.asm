@@ -26,19 +26,11 @@
 !byte $31,$35,$32,$00,$00,$00           ; puts BASIC line 2012 SYS 49152
 * = $c000     				            ; start address for 6502 code
 
-
-
 ;============================================================
 ;  Main routine with IRQ setup and custom IRQ routine
 ;============================================================
 
 !source "code/main.asm"
-
-;============================================================
-; load resource files (fonts, graphics, music)
-;============================================================
-
-!source "code/load_resources.asm"
 
 ;============================================================
 ;    setup symbols, pointers
@@ -63,3 +55,8 @@
 !source "code/sub_joystick.asm"
 !source "code/sub_music.asm"
 
+;============================================================
+; load resource files (fonts, graphics, music)
+;============================================================
+
+!source "code/load_resources.asm"
