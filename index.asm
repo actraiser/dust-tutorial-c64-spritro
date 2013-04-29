@@ -1,8 +1,8 @@
 ;============================================================
-; Empty Assembler project with Basic Loader
+; Spritro Tutorial
 ; Code by actraiser/Dustlayer
 ;
-; http://www.dustlayer.com
+; http://dustlayer.com
 ; 
 ;============================================================
 
@@ -15,7 +15,7 @@
 ;============================================================
 
 !cpu 6502
-!to "build/dustlayer-sprite.prg",cbm    ; output file
+!to "build/dustlayer-spritro.prg",cbm    ; output file
 
 ;============================================================
 ; BASIC loader with start address $c000
@@ -34,10 +34,31 @@
 
 !source "code/main.asm"
 
-!source "code/sprite.asm"
-
 ;============================================================
-;  add additional source files as required
+; load resource files (fonts, graphics, music)
 ;============================================================
 
 !source "code/load_resources.asm"
+
+;============================================================
+;    setup symbols, pointers
+;============================================================
+
+!source "code/init_symbols.asm"
+!source "code/init_sprites.asm"
+
+;============================================================
+; one-time called sub outines
+;============================================================
+
+!source "code/sub_clear_screen.asm"
+
+;============================================================
+;    subroutines called during custom IRQ
+;============================================================
+
+!source "code/sub_sprite_logo.asm"
+!source "code/sub_sprite_ship.asm"
+!source "code/sub_keyboard.asm"
+!source "code/sub_joystick.asm"
+
