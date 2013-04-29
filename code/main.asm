@@ -3,7 +3,7 @@
 ;==================================================================
 
            sei         ; set interrupt disable flag
-            
+           
            jsr clear_screen     ; clear the screen
            jsr init_sid         ; init music routine 
 
@@ -12,7 +12,7 @@
            sty $dd0d   ; Turn off CIAs Timer interrupts ($7f = %01111111)
            lda $dc0d   ; by reading $dc0d and $dd0d we cancel all CIA-IRQs in queue/unprocessed
            lda $dd0d   ; by reading $dc0d and $dd0d we cancel all CIA-IRQs in queue/unprocessed
-          
+           
            lda #$01    ; Set Interrupt Request Mask...
            sta $d01a   ; ...we want IRQ by Rasterbeam (%00000001)
 
@@ -38,7 +38,7 @@
 ;============================================================
 
 top        dec $d019        ; acknowledge IRQ / clear register for next interrupt
-           
+
            lda #$9c    ; trigger bottom interrupt at raster line 156
            sta $d012
 
@@ -55,7 +55,7 @@ top        dec $d019        ; acknowledge IRQ / clear register for next interrup
 
 
 
- 
+           
 
 
 bottom     dec $d019        ; acknowledge IRQ / clear register for next interrupt
