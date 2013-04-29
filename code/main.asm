@@ -49,8 +49,13 @@ top        dec $d019        ; acknowledge IRQ / clear register for next interrup
            ldx #>bottom
            sta $314    ; store in $314/$315
            stx $315   
+           +stabilize           ; call a macro
 
            jsr play_sid         ; jump to play music routine
+
+
+
+ 
 
 
 bottom     dec $d019        ; acknowledge IRQ / clear register for next interrupt

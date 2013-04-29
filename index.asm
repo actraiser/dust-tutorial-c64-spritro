@@ -29,7 +29,7 @@
 ;============================================================
 ;  Main routine with IRQ setup and custom IRQ routine
 ;============================================================
-
+!source "code/macro_stable_raster.asm"
 !source "code/main.asm"
 
 ;============================================================
@@ -54,8 +54,13 @@
 !source "code/sub_joystick.asm"
 !source "code/sub_music.asm"
 
+
+
+
 ;============================================================
 ; load resource files (fonts, graphics, music)
 ;============================================================
 
 !source "code/load_resources.asm"
+
+
