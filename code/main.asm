@@ -22,10 +22,10 @@
 
            lda #<top   ; point IRQ Vector to our custom irq routine
            ldx #>top 
-           sta $314    ; store in $314/$315
-           stx $315   
+           sta $0314    ; store in $314/$315
+           stx $0315   
 
-           lda #$00    ; trigger first interrupt at row zero
+           lda #$30    ; trigger first interrupt at row zero
            sta $d012
 
            cli                  ; clear interrupt disable flag
@@ -38,33 +38,37 @@
 ;============================================================
 
 top        dec $d019        ; acknowledge IRQ / clear register for next interrupt
+           ; stable code start
 
            lda #$9c    ; trigger bottom interrupt at raster line 156
            sta $d012
-
            lda $09          ; set background color for upper half of the scren
            sta $d021
+           jsr play_sid         ; jump to play music routine
+           ; stable code end
 
+
+           ; next IRQ Setup Start
            lda #<bottom   ; point IRQ Vector to our next irq routine
            ldx #>bottom
-           sta $314    ; store in $314/$315
-           stx $315   
-           +stabilize           ; call a macro
-
-           jsr play_sid         ; jump to play music routine
-
+           sta $0314    ; store in $314/$315
+           stx $0315   
+           ; next IRQ Setup End
 
 
            
 
-
 bottom     dec $d019        ; acknowledge IRQ / clear register for next interrupt
+
+
            lda $06              ; set background color for lower half of the screen
            sta $d021
            
+
+           ; next IRQ Setup Start
            lda #<top   ; point IRQ Vector to our next irq routine
            ldx #>top
-           sta $314    ; store in $314/$315
-           stx $315   
-
-           jmp $ea81        ; return to kernel interrupt routine
+           sta $0314    ; store in $314/$315
+           stx $0315   
+           ; next IRQ Setup end
+           jmp $ea31

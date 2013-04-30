@@ -29,7 +29,7 @@
 ;============================================================
 ;  Main routine with IRQ setup and custom IRQ routine
 ;============================================================
-!source "code/macro_stabilize"
+!source "code/macro_stabilize.asm"
 !source "code/main.asm"
 
 ;============================================================

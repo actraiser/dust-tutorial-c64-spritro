@@ -29,4 +29,3 @@ logo_sprite_7 = $58		  ; sprite pointer for Sprite#7 (logo)
 
 screen_ram = $0400		  ; start of screen ram
 char_ram   = $3000		  ; start of our copied characters
-
