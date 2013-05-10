@@ -42,8 +42,8 @@ top        dec $d019        ; acknowledge IRQ / clear register for next interrup
 
            lda #$9c    ; trigger bottom interrupt at raster line 156
            sta $d012
-           lda $09          ; set background color for upper half of the scren
-           sta $d021
+           ;lda $09          ; set background color for upper half of the scren
+           ;sta $d021
            jsr play_sid         ; jump to play music routine
            ; stable code end
 
@@ -61,8 +61,8 @@ top        dec $d019        ; acknowledge IRQ / clear register for next interrup
 bottom     dec $d019        ; acknowledge IRQ / clear register for next interrupt
 
 
-           lda $06              ; set background color for lower half of the screen
-           sta $d021
+           ;lda $06              ; set background color for lower half of the screen
+           ;sta $d021
            
 
            ; next IRQ Setup Start

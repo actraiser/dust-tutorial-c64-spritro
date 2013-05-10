@@ -3,8 +3,8 @@
 ;============================================================
 
 clear_screen     ldx #$00     ; start of loop
-                 stx $d020    ; write to border register
-                 stx $d021    ; write to screen register
+                 stx $d020    ; write to border color register
+                 stx $d021    ; write to screen color register
 clear_loop       lda #$20     ; #$20 is the spacebar screencode
                  sta $0400,x  ; fill four areas with 256 spacebar characters
                  sta $0500,x 
