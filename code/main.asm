@@ -20,12 +20,12 @@
            and #$7f    ; it is basically the 9th Bit for $d012
            sta $d011   ; we need to make sure it is set to zero for our intro.
 
-           lda #<top   ; point IRQ Vector to our custom irq routine
-           ldx #>top 
+           lda #<irq   ; point IRQ Vector to our custom irq routine
+           ldx #>irq 
            sta $0314    ; store in $314/$315
            stx $0315   
 
-           lda #$30    ; trigger first interrupt at row zero
+           lda #$00    ; trigger first interrupt at row zero
            sta $d012
 
            cli                  ; clear interrupt disable flag
@@ -33,42 +33,13 @@
 
 
 ;============================================================
-;    Our first custom interrupt routines follow
-;    everything which must run 60 times per second 
+;    Our custom interrupt routines 
 ;============================================================
 
-top        dec $d019        ; acknowledge IRQ / clear register for next interrupt
-           ; stable code start
-
-           lda #$9c    ; trigger bottom interrupt at raster line 156
-           sta $d012
-           ;lda $09          ; set background color for upper half of the scren
-           ;sta $d021
-           jsr play_sid         ; jump to play music routine
-           ; stable code end
-
-
-           ; next IRQ Setup Start
-           lda #<bottom   ; point IRQ Vector to our next irq routine
-           ldx #>bottom
-           sta $0314    ; store in $314/$315
-           stx $0315   
-           ; next IRQ Setup End
-
-
-           
-
-bottom     dec $d019        ; acknowledge IRQ / clear register for next interrupt
-
-
-           ;lda $06              ; set background color for lower half of the screen
-           ;sta $d021
-           
-
-           ; next IRQ Setup Start
-           lda #<top   ; point IRQ Vector to our next irq routine
-           ldx #>top
-           sta $0314    ; store in $314/$315
-           stx $0315   
-           ; next IRQ Setup end
-           jmp $ea31
+irq        dec $d019        ; acknowledge IRQ / clear register for next interrupt
+           jsr play_sid     ; jump to play music routine
+           jsr move_starfield ; move starfield
+           jsr move_ship      ; move ship
+           jsr check_keyboard ; check keyboard controls
+           jsr check_joystick ; check joystick controls
+           jmp $ea31 ; return to Kernel routine

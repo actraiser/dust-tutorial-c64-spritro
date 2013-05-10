@@ -48,14 +48,11 @@
 ;    subroutines called during custom IRQ
 ;============================================================
 
-!source "code/sub_sprite_logo.asm"
-!source "code/sub_sprite_ship.asm"
-!source "code/sub_keyboard.asm"
-!source "code/sub_joystick.asm"
-!source "code/sub_music.asm"
-
-
-
+!source "code/sub_move_ship.asm"
+!source "code/sub_move_stars.asm"
+!source "code/sub_check_keyboard.asm"
+!source "code/sub_check_joystick.asm"
+!source "code/sub_play_music.asm"
 
 ;============================================================
 ; load resource files (fonts, graphics, music)
