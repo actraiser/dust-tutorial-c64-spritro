@@ -40,12 +40,14 @@
 
 !source "code/config_resources.asm"
 
-
 ;============================================================
 ; one-time called subroutines
 ;============================================================
 
 !source "code/sub_clear_screen.asm"
+
+
+
 
 ;============================================================
 ;    subroutines called during custom IRQ
@@ -56,6 +58,8 @@
 !source "code/sub_check_keyboard.asm"
 !source "code/sub_check_joystick.asm"
 !source "code/sub_play_music.asm"
+
+
 
 ;============================================================
 ;  Main routine with custom interrupt

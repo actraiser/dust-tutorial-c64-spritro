@@ -10,9 +10,9 @@
 ; we need a couple of locations to count down frames
 ; for the animation of each Sprite
 
-sprite_ship_current_frame	= $02
-sprite_star_1_current_frame	= $03
-sprite_star_2_current_frame	= $04
+sprite_ship_current_frame	= $fb
+sprite_star_1_current_frame	= $fc
+sprite_star_2_current_frame	= $fd
 
 ; the number of frames per sprite are stored here
 sprite_frames_ship		= 16
@@ -23,6 +23,11 @@ sprite_frames_star_2	= 8
 sprite_pointer_ship		= address_sprites / $40
 sprite_pointer_star_1	= sprite_pointer_ship + sprite_frames_ship
 sprite_pointer_star_2	= sprite_pointer_star_1 + sprite_frames_star_1
+
+; colors
+sprite_background_color = $00
+sprite_multicolor_1  	= $0b
+sprite_multicolor_2  	= $01
 
 ; initialize counters with frame numbers
 lda #sprite_frames_ship
@@ -41,5 +46,8 @@ lda #sprite_pointer_star_2
 sta screen_ram + $3fa
 
 ; setup is finished, we jump to the main routine
+; we want the main routine to know where to put its code
 main_address = *
+
+
 jmp main
