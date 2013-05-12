@@ -20,6 +20,8 @@ main      sei         ; set interrupt disable flag
           lda #%00000111        ; all sprites overlay background
           sta $d01b
 
+
+          ; shared colors
           lda #sprite_background_color
           sta $d021
           lda #sprite_multicolor_1
@@ -27,6 +29,13 @@ main      sei         ; set interrupt disable flag
           lda #sprite_multicolor_2
           sta $d026
 
+          ; individual colors
+          lda #sprite_ship_color
+          sta $d027
+          lda #sprite_star_1_color
+          sta $d028
+          lda #sprite_star_2_color
+          sta $d029
 
 
            ldy #$7f    ; $7f = %01111111
@@ -59,7 +68,7 @@ main      sei         ; set interrupt disable flag
 ;============================================================
 
 irq        dec $d019        ; acknowledge IRQ / clear register for next interrupt
-           ;jsr play_sid     ; jump to play music routine
+           jsr play_sid     ; jump to play music routine
            jsr move_starfield ; move starfield
            jsr move_ship      ; move ship
            jsr check_keyboard ; check keyboard controls

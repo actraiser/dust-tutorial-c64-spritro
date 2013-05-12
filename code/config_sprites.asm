@@ -24,10 +24,16 @@ sprite_pointer_ship		= address_sprites / $40
 sprite_pointer_star_1	= sprite_pointer_ship + sprite_frames_ship
 sprite_pointer_star_2	= sprite_pointer_star_1 + sprite_frames_star_1
 
-; colors
+; shared sprite colors
 sprite_background_color = $00
 sprite_multicolor_1  	= $0b
 sprite_multicolor_2  	= $01
+
+; individual sprite colors (to be defined)
+sprite_ship_color		= $00
+sprite_star_1_color		= $00
+sprite_star_2_color		= $00
+
 
 ; initialize counters with frame numbers
 lda #sprite_frames_ship
