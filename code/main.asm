@@ -2,10 +2,20 @@
 ; main.asm triggers all sub routines and runs the Interrupt Routine
 ;==================================================================
 
-           sei         ; set interrupt disable flag
+* = main_address
+main      sei         ; set interrupt disable flag
            
-           jsr clear_screen     ; clear the screen
-           jsr init_sid         ; init music routine 
+          jsr clear_screen     ; clear the screen
+          jsr init_sid         ; init music routine 
+
+
+          lda %00000111        ; enable Sprites 0-2
+          sta $d015
+
+          lda %00000000        ; all sprites overlay background
+          sta $d01b
+
+
 
            ldy #$7f    ; $7f = %01111111
            sty $dc0d   ; Turn off CIAs Timer interrupts ($7f = %01111111)
