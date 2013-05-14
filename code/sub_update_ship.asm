@@ -1,14 +1,13 @@
 ;============================================================
 ; sprite animation routine right to left
-; high bit is initially set to start at outer right position 
 ;============================================================
 
-switch_x_high       lda $d010                        ; load 9th Bit
+ship_x_high         lda $d010                        ; load 9th Bit
                     eor #$01                         ; eor against #$01
                     sta $d010                        ; store into 9th bit
 
 update_ship         dec $d000                        ; decrease X-Coord
-                    beq switch_x_high                ; switch 9th Bit of X-Coord
+                    beq ship_x_high                  ; switch 9th Bit of X-Coord
 
 
 animate_ship        lda delay_animation_pointer      ; pointer is either #$01 or #$00
