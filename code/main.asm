@@ -40,7 +40,7 @@ main      sei         ; set interrupt disable flag
 ;============================================================
 
 irq        dec $d019        ; acknowledge IRQ / clear register for next interrupt
-           jsr fade_text    ; fade text
+           jsr color_cycle    ; put color cycle on text
            jsr play_sid     ; jump to play music routine
            jsr update_starfield ; move starfield
            jsr update_ship      ; move ship

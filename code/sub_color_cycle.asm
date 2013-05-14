@@ -1,4 +1,4 @@
-fade_text   ldx #$00
+color_cycle ldx #$00
 			
 color_init  lda sprite_ship_current_frame
 
