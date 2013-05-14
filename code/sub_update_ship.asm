@@ -29,4 +29,3 @@ dec_ship_frame      inc screen_ram + $3f8            ; increase current pointer 
                     beq reset_ship_frames            ; if current frame is zero, reset
 
 delay_animation     rts                   ; do nothing in this refresh, return
-

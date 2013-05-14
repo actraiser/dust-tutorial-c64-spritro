@@ -44,17 +44,75 @@ sta sprite_star_1_current_frame
 lda #sprite_frames_star_2
 sta sprite_star_2_current_frame
 
-; store the pointers in the sprite pointer registers for Sprite#0 to Sprite #2
+; store the pointers in the sprite pointer registers for Sprite#0 to Sprite #8
+; we use Sprite#0 for the Ship, Sprite#1-4 for Star_1 and Sprite#5-7 for Star_2
 lda #sprite_pointer_ship
 sta screen_ram + $3f8
 lda #sprite_pointer_star_1
 sta screen_ram + $3f9
-lda #sprite_pointer_star_2
 sta screen_ram + $3fa
+sta screen_ram + $3fb
+sta screen_ram + $3fc
+lda #sprite_pointer_star_2
+sta screen_ram + $3fd
+sta screen_ram + $3fe
+sta screen_ram + $3ff
 
 ; load our delay animation byte with $00
 lda #$00
 sta delay_animation_pointer
+
+; initial sprite positions for X and Y
+
+; Sprite#0
+lda #$ff
+sta $d000
+lda #$80
+sta $d001
+
+; X for Sprite#1-7 is #$00
+lda #$20
+sta $d002
+sta $d004
+sta $d006
+sta $d008
+sta $d00a
+sta $d00c
+sta $d00e
+
+
+; Sprite#1
+lda #$20
+sta $d003
+
+; Sprite#2
+lda #$50
+sta $d005
+
+; Sprite#3
+lda #$90
+sta $d007
+
+; Sprite#4
+lda #$a0
+sta $d009
+
+; Sprite#5
+lda #$b0
+sta $d00b
+
+; Sprite#6
+lda #$d0
+sta $d00d
+
+; Sprite#7
+lda #$f0
+sta $d00f
+
+
+; set high bit only for ship as it starts on the outer right
+lda #$01
+sta $d010
 
 ; setup is finished, we jump to the main routine
 ; we want the main routine to know where to put its code

@@ -10,14 +10,14 @@ main      sei         ; set interrupt disable flag
           jsr init_sid         ; init music routine 
 
 
-          lda #%00000111        ; enable Sprites 0-2
+          lda #$ff        ; enable all Sprites 
           sta $d015
 
-          lda #%00000111        ; set multi color
+          lda #$ff        ; set multi color for all sprites
           sta $d01c
 
 
-          lda #%00000111        ; all sprites overlay background
+          lda #$ff     ; all sprites overlay background
           sta $d01b
 
 
@@ -37,12 +37,6 @@ main      sei         ; set interrupt disable flag
           lda #sprite_star_2_color
           sta $d029
 
-          lda #$ff
-          sta $d000
-          lda #$80
-          sta $d001
-          lda #$01
-          sta $d010
 
 
            ldy #$7f    ; $7f = %01111111
