@@ -1,3 +1,8 @@
+;============================================================
+; color cycle over text using the sprite pointer of the 
+; ship to get the next color 
+;============================================================
+
 color_cycle ldx #$00
 			
 color_init  lda sprite_ship_current_frame
