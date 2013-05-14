@@ -3,9 +3,9 @@
 ; high bit is initially set to start at outer right position 
 ;============================================================
 
-switch_x_high       lda $d010
-                    eor #$01
-                    sta $d010
+switch_x_high       lda $d010                        ; load 9th Bit
+                    eor #$01                         ; eor against #$01
+                    sta $d010                        ; store into 9th bit
 
 update_ship         dec $d000                        ; decrease X-Coord
                     beq switch_x_high                ; switch 9th Bit of X-Coord
@@ -17,7 +17,6 @@ animate_ship        lda delay_animation_pointer      ; pointer is either #$01 or
                     beq delay_animation              ; skip animation for this refresh if 0
                     lda sprite_ship_current_frame    ; load current frame number
                     bne dec_ship_frame               ; if not progress animation
-                    rts 
 
 reset_ship_frames   lda #sprite_frames_ship        ; load number of frames for ship
                     sta sprite_ship_current_frame  ; store into current frame counter
