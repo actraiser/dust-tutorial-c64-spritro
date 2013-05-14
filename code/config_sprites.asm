@@ -32,8 +32,8 @@ sprite_multicolor_2  	= $01
 
 ; individual sprite colors (to be defined)
 sprite_ship_color		= $00
-sprite_star_1_color		= $00
-sprite_star_2_color		= $00
+sprite_star_1_color		= $01
+sprite_star_2_color		= $01
 
 
 ; initialize counters with frame numbers
@@ -58,19 +58,52 @@ sta screen_ram + $3fd
 sta screen_ram + $3fe
 sta screen_ram + $3ff
 
+
+
+lda #$ff        ; enable all Sprites 
+sta $d015
+
+lda #$ff        ; set multi color for all sprites
+sta $d01c
+
+lda #$ff     ; all sprites overlay background
+sta $d01b
+
+
+; shared colors for sprites
+lda #sprite_background_color
+sta $d021
+lda #sprite_multicolor_1
+sta $d025
+lda #sprite_multicolor_2
+sta $d026
+
+; individual colors for ship and the 7 star sprites
+lda #sprite_ship_color
+sta $d027
+lda #sprite_star_1_color
+sta $d028
+sta $d029
+sta $d02a
+sta $d02b
+lda #sprite_star_2_color
+sta $d02c
+sta $d02d
+sta $d02e
+
 ; load our delay animation byte with $00
 lda #$00
 sta delay_animation_pointer
 
-; initial sprite positions for X and Y
+; initial sprite positions with X/Y coords
 
-; Sprite#0
+; Sprite#0 (ship - outer right)
 lda #$ff
 sta $d000
 lda #$80
 sta $d001
 
-; X for Sprite#1-7 is #$00
+; X for Sprite#1-7 is #$00 (outer left)
 lda #$20
 sta $d002
 sta $d004
@@ -80,37 +113,35 @@ sta $d00a
 sta $d00c
 sta $d00e
 
-
-; Sprite#1
-lda #$20
+; Y-Coord Sprite#1
+lda #$30
 sta $d003
 
-; Sprite#2
+; Y-Coord Sprite#2
 lda #$50
 sta $d005
 
-; Sprite#3
+; Y-Coord Sprite#3
 lda #$90
 sta $d007
 
-; Sprite#4
+; Y-Coord Sprite#4
 lda #$a0
 sta $d009
 
-; Sprite#5
+; Y-Coord Sprite#5
 lda #$b0
 sta $d00b
 
-; Sprite#6
-lda #$d0
+; Y-Coord Sprite#6
+lda #$c0
 sta $d00d
 
-; Sprite#7
-lda #$f0
+; Y-Coord Sprite#7
+lda #$d0
 sta $d00f
 
-
-; set high bit only for ship as it starts on the outer right
+; set high bit (9th Bit) only for ship x-coord
 lda #$01
 sta $d010
 
