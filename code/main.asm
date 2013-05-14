@@ -37,10 +37,12 @@ main      sei         ; set interrupt disable flag
           lda #sprite_star_2_color
           sta $d029
 
-          lda #$90
+          lda #$ff
           sta $d000
+          lda #$80
           sta $d001
-
+          lda #$01
+          sta $d010
 
 
            ldy #$7f    ; $7f = %01111111

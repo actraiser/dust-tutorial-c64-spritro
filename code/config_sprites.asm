@@ -13,6 +13,7 @@
 sprite_ship_current_frame	= $fb
 sprite_star_1_current_frame	= $fc
 sprite_star_2_current_frame	= $fd
+delay_animation_pointer     = $9e
 
 ; the number of frames per sprite are stored here
 sprite_frames_ship		= 16
@@ -50,6 +51,10 @@ lda #sprite_pointer_star_1
 sta screen_ram + $3f9
 lda #sprite_pointer_star_2
 sta screen_ram + $3fa
+
+; load our delay animation byte with $00
+lda #$00
+sta delay_animation_pointer
 
 ; setup is finished, we jump to the main routine
 ; we want the main routine to know where to put its code
