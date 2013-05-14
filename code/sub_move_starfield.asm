@@ -1,1 +1,0 @@
-move_starfield  rts

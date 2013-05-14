@@ -46,15 +46,12 @@
 
 !source "code/sub_clear_screen.asm"
 
-
-
-
 ;============================================================
 ;    subroutines called during custom IRQ
 ;============================================================
 
-!source "code/sub_move_ship.asm"
-!source "code/sub_move_starfield.asm"
+!source "code/sub_update_ship.asm"
+!source "code/sub_update_starfield.asm"
 !source "code/sub_check_keyboard.asm"
 !source "code/sub_check_joystick.asm"
 !source "code/sub_play_music.asm"
