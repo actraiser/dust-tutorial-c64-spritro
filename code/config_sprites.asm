@@ -8,7 +8,7 @@
 
 
 ; we need a couple of locations to count down frames
-; for the animation of each Sprite
+; for the animation of the Sprite
 
 sprite_ship_current_frame	= $fb
 delay_animation_pointer     = $9e
@@ -25,8 +25,7 @@ sprite_multicolor_1  	= $0b
 sprite_multicolor_2  	= $01
 
 ; individual sprite colors (to be defined)
-sprite_ship_color		= $00
-
+sprite_ship_color		= $02
 
 ; initialize counters with frame numbers
 lda #sprite_frames_ship
@@ -37,23 +36,20 @@ sta sprite_ship_current_frame
 lda #sprite_pointer_ship
 sta screen_ram + $3f8
 
-
-
-lda #$01        ; enable first Sprite
+lda #$01        ; enable Sprite#0
 sta $d015
 
-lda #$01        ; set multi color for all sprites
+lda #$01        ; set multicolor Sprite#0
 sta $d01c
 
-lda #$01     ; all sprites overlay background
+lda #$01     ; Sprite#0 has priority over background
 sta $d01b
 
-; set high bit (9th Bit) only for Sprite#0 x-coord
+; set X-Coord high bit (9th Bit) for Sprite#0
 lda #$01
 sta $d010
 
-
-; shared colors for sprites
+; shared colors 
 lda #sprite_background_color
 sta $d021
 lda #sprite_multicolor_1
@@ -61,16 +57,16 @@ sta $d025
 lda #sprite_multicolor_2
 sta $d026
 
-; individual colors for ship and the 7 star sprites
+; individual color Sprite#0
 lda #sprite_ship_color
 sta $d027
-
 
 ; load our delay animation byte with $00
 lda #$00
 sta delay_animation_pointer
 
-; initial sprite positions with X/Y coords
+; initial sprite positions with X/Y coords 
+; about middle of the screen on the outer right
 lda #$e0
 sta $d000
 lda #$a0

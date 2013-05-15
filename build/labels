@@ -1,4 +1,4 @@
-sprite_ship_color  =$0
+sprite_ship_color  =$2
 irq  =$c077; ?
 animate_ship  =$39dd; unused
 sprite_ship_current_frame  =$fb
