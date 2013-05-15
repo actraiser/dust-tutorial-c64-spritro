@@ -28,10 +28,10 @@ main      sei         ; set interrupt disable flag
           sta $0314    ; store in $314/$315
           stx $0315   
 
-          lda #$00    ; trigger first interrupt at row zero
+          lda #$00    ; trigger interrupt at row zero
           sta $d012
 
-          lda #$06
+          lda #$06    ; set border to blue color
           sta $d020
 
           cli         ; clear interrupt disable flag
@@ -49,7 +49,9 @@ irq        dec $d019        ; acknowledge IRQ / clear register for next interrup
            jsr check_keyboard ; check keyboard controls
 
 
-; open top/bottom borders
+;============================================================
+;    Open Top/Bottom borders
+;============================================================
 
            lda #$00
            sta $3fff
