@@ -1,6 +1,7 @@
 ;============================================================
-; color cycle over text using the sprite pointer of the 
+; 1. color cycle over text using the sprite pointer of the 
 ; ship to get the next color 
+; 2. Slower Color cycle over side boarders 
 ;============================================================
  
 color_cycle ldx #$00 		; init counter for column
@@ -24,4 +25,12 @@ color_inc 	sta $d828,x      ; increase colors line 1
             inx    			 ; increase column-position counter 
             cpx #$28         ; finished when all 40 cols of a line are processed
             bne color_inc    ; if not finished write new color into register
+		    lda delay_counter
+			cmp #$34
+			beq border_color
+			inc delay_counter
 color_exit  rts 			 ; return
+border_color  inc $d020
+			  lda #$01
+			  sta delay_counter
+			  rts

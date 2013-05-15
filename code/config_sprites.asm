@@ -26,6 +26,9 @@ sprite_multicolor_2  	= $01
 ; individual sprite colors (to be defined)
 sprite_ship_color		= $02
 
+; delay_counter
+delay_counter = $90
+
 ; initialize counters with frame numbers
 lda #sprite_frames_ship
 sta sprite_ship_current_frame
@@ -41,7 +44,7 @@ sta $d015
 lda #$01        ; set multicolor Sprite#0
 sta $d01c
 
-lda #$01     ; Sprite#0 has priority over background
+lda #$00     ; Sprite#0 has priority over background
 sta $d01b
 
 ; set X-Coord high bit (9th Bit) for Sprite#0
@@ -64,10 +67,14 @@ sta $d027
 lda #$00
 sta delay_animation_pointer
 
+; delay counter init
+lda #$01
+sta delay_counter
+
 ; initial sprite positions with X/Y coords 
 ; about middle of the screen on the outer right
-lda #$e0
-sta $d000
 lda #$a0
+sta $d000
+lda #$ff
 sta $d001
 

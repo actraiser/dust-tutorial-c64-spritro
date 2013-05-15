@@ -55,7 +55,7 @@ check_u                 lda #%11110111  ; select column to test
                         rts             ; return     
 
 go_up                   lda $d001
-                        cmp #$1d        ; check if we are too high
+                        cmp #$1e        ; check if we are too high
                         beq skip
                         dec $d001       ; decrease y-coord for sprite 1
                         
