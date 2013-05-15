@@ -42,8 +42,6 @@ main      sei         ; set interrupt disable flag
 irq        dec $d019        ; acknowledge IRQ / clear register for next interrupt
            jsr color_cycle    ; put color cycle on text
            jsr play_sid     ; jump to play music routine
-           jsr update_starfield ; move starfield
            jsr update_ship      ; move ship
            jsr check_keyboard ; check keyboard controls
-           jsr check_joystick ; check joystick controls
            jmp $ea31 ; return to Kernel routine

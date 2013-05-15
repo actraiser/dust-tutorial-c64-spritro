@@ -61,9 +61,7 @@ jmp main
 ;============================================================
 
 !source "code/sub_update_ship.asm"
-!source "code/sub_update_starfield.asm"
 !source "code/sub_check_keyboard.asm"
-!source "code/sub_check_joystick.asm"
 !source "code/sub_color_cycle.asm"
 
 ;============================================================
