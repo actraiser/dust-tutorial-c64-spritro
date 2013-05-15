@@ -1,7 +1,3 @@
-;============================================================
-; sprite animation routine right to left
-;============================================================
-
 ship_x_high         lda $d010                        ; load 9th Bit
                     eor #$01                         ; eor against #$01
                     sta $d010                        ; store into 9th bit
