@@ -54,13 +54,22 @@ check_u                 lda #%11110111  ; select column to test
 
                         rts             ; return     
 
-go_up                   dec $d001       ; decrease y-coord for sprite 1
+go_up                   lda $d001
+                        cmp #$1d        ; check if we are too high
+                        beq skip
+                        dec $d001       ; decrease y-coord for sprite 1
+                        
                         rts
 
-go_down                 inc $d001       ; increase y-coord for sprite 1
+go_down                 lda $d001       ; increase y-coord for sprite 1
+                        cmp #$ff        ; check if we are at the bottom low
+                        beq skip
+                        inc $d001
                         rts
 
 exit_to_basic           lda #$00
                         sta $d015        ; turn off all sprites
                         jmp $ea81        ; jmp to regular interrupt routine
                         rts
+
+skip                    rts

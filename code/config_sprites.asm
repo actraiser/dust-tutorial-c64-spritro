@@ -6,7 +6,6 @@
 ; Star 2 Sprite next 8x64Bytes of Star 1 Location
 ;============================================================
 
-
 ; we need a couple of locations to count down frames
 ; for the animation of the Sprite
 

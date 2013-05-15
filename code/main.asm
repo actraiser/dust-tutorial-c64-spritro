@@ -31,6 +31,9 @@ main      sei         ; set interrupt disable flag
           lda #$00    ; trigger first interrupt at row zero
           sta $d012
 
+          lda #$06
+          sta $d020
+
           cli         ; clear interrupt disable flag
           jmp *       ; infinite loop
 
@@ -44,4 +47,31 @@ irq        dec $d019        ; acknowledge IRQ / clear register for next interrup
            jsr play_sid     ; jump to play music routine
            jsr update_ship      ; move ship
            jsr check_keyboard ; check keyboard controls
+
+
+; open top/bottom borders
+
+           lda #$00
+           sta $3fff
+
+        ; Wait until scanline 249
+           lda #$f9
+           cmp $d012
+           bne *-3
+
+        ; Trick the VIC and open the border!!
+           lda $d011
+           and #$f7
+           sta $d011
+
+        ; Wait until scanline 255
+           lda #$ff
+           cmp $d012
+           bne *-3
+
+        ; Reset bit 3 for the next frame
+           lda $d011
+           ora #$08
+           sta $d011
+
            jmp $ea31 ; return to Kernel routine
