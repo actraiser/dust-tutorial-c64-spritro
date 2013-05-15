@@ -34,6 +34,15 @@
 !source "code/config_symbols.asm"
 !source "code/config_sprites.asm"
 
+
+;============================================================
+; setup is finished, we jump to the main routine
+; remember next address in symbol main_address
+;============================================================
+
+main_address = *
+jmp main
+
 ;============================================================
 ; load resource files (fonts, graphics, music)
 ;============================================================
@@ -45,6 +54,7 @@
 ;============================================================
 
 !source "code/sub_clear_screen.asm"
+!source "code/sub_write_text.asm"
 
 ;============================================================
 ;    subroutines called during custom IRQ
@@ -54,8 +64,13 @@
 !source "code/sub_update_starfield.asm"
 !source "code/sub_check_keyboard.asm"
 !source "code/sub_check_joystick.asm"
-!source "code/sub_play_music.asm"
+!source "code/sub_color_cycle.asm"
 
+;============================================================
+; load anything data (text, tables)
+;============================================================
+
+!source "code/data_text.asm"
 
 
 ;============================================================

@@ -144,10 +144,3 @@ sta $d00f
 ; set high bit (9th Bit) only for ship x-coord
 lda #$01
 sta $d010
-
-; setup is finished, we jump to the main routine
-; we want the main routine to know where to put its code
-main_address = *
-
-
-jmp main

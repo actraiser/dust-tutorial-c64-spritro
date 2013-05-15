@@ -8,6 +8,7 @@ main      sei         ; set interrupt disable flag
            
           jsr clear_screen     ; clear the screen
           jsr init_sid         ; init music routine 
+          jsr write_text       ; write two lines of text
 
           ldy #$7f    ; $7f = %01111111
           sty $dc0d   ; Turn off CIAs Timer interrupts ($7f = %01111111)
@@ -39,6 +40,7 @@ main      sei         ; set interrupt disable flag
 ;============================================================
 
 irq        dec $d019        ; acknowledge IRQ / clear register for next interrupt
+           jsr color_cycle    ; put color cycle on text
            jsr play_sid     ; jump to play music routine
            jsr update_starfield ; move starfield
            jsr update_ship      ; move ship
