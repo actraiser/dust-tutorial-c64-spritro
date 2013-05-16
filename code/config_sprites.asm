@@ -68,7 +68,7 @@ lda #$00
 sta delay_animation_pointer
 
 ; delay counter init
-lda #$01
+lda #$00
 sta delay_counter
 
 ; initial sprite positions with X/Y coords 
