@@ -24,14 +24,14 @@ color_inc 	    sta $d828,x      ; increase colors line 1
                 inx    			 ; increase column-position counter 
                 cpx #$28         ; finished when all 40 cols of a line are processed
                 bne color_inc    ; if not finished write new color into register
-		        lda delay_counter
-	            cmp #$34
-		        beq border_color
-			    inc delay_counter
+		        lda delay_counter ; load delay counter
+	            cmp #$34           ; compare to #$34
+		        beq border_color   ; switch border color
+			    inc delay_counter  ; increase delay counter
 color_exit      rts 			 ; return
-border_color    lda $d020
-			    eor #$08
-                sta $d020
-                lda #$00
+border_color    lda $d020        ; load border color
+			    eor #$08         ; flip between blue and light blue
+                sta $d020        ; store new bordercolor
+                lda #$00         ; reset delay counter
 			    sta delay_counter
 			    rts
