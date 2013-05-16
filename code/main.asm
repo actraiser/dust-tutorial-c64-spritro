@@ -5,7 +5,7 @@
 * = main_address      ; main_address was set after the last configuration file
 
 main      sei         ; set interrupt disable flag
-           
+
           jsr clear_screen     ; clear the screen
           jsr init_sid         ; init music routine 
           jsr write_text       ; write two lines of text

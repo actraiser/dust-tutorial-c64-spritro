@@ -11,7 +11,7 @@ color_init      lda sprite_ship_current_frame  ; load ship sprite pointer value.
 		        cmp #$0f 		; when its #$0f we skip addition of 1 
 		        beq color_inc   
 			    adc #$01   		; otherwise we add 1 eliminating the possibility...
-							; ... to get the color black.
+								; ... to get the color black.
 
 color_inc 	    sta $d828,x      ; increase colors line 1
                 sta $d878,x      ; increase colors line 2

@@ -15,3 +15,4 @@ loop_text  lda line1,x      ; read characters from line1 table of text...
            inx 
            cpx #$28         ; finished when all 40 cols of a line are processed
            bne loop_text
+           rts

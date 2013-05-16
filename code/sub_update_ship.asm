@@ -2,7 +2,7 @@ ship_x_high         lda $d010                        ; load 9th Bit
                     eor #$01                         ; eor against #$01
                     sta $d010                        ; store into 9th bit
 
-update_ship         dec $d000                        ; decrease X-Coord
+update_ship         dec $d000                        ; decrease X-Coord until zero
                     beq ship_x_high                  ; switch 9th Bit of X-Coord
 
 

@@ -67,8 +67,8 @@ sta $d027
 lda #$00
 sta delay_animation_pointer
 
-; delay counter init
-lda #$00
+; another delay counter gets inititalized
+lda #$01
 sta delay_counter
 
 ; initial sprite positions with X/Y coords 
