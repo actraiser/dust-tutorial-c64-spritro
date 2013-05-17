@@ -15,11 +15,7 @@
 ; Used by attache devices: $90-$C2 (except $A0-$A2 used for internal clock)
 ; Required for Basic: $03-$56 und $73-$8B.
 
-
-screen_ram = $0400			; location of screen ram
-address_sprites = $2000		;loading address for ship sprite
-address_chars = $3800      ; loading address for charset ($3800: last possible location for the 512bytes in Bank 3)
-
-address_sid = $1001 	  ; loading address for sid tune
-init_sid = $11ed      	  ; init routine for music
-play_sid = $1004      	  ; play music routine
+screen_ram = $0400		; location of screen ram
+init_sid = $11ed      	; init routine for music
+play_sid = $1004      	; play music routine
+delay_counter = $90 	; used to time color switch in the border

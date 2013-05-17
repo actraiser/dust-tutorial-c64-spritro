@@ -1,10 +1,15 @@
 ; load external binaries
 
-* = address_sprites                  ; address to load the sprites to
-!bin "resources/sprites.spr",1024,3  ; skip first three bytes, then load 16x64 Bytes from file
+address_sprites = $2000	  ;loading address for ship sprite
+address_chars = $3800     ; loading address for charset ($3800: last possible location for the 512bytes in Bank 3)
+address_sid = $1001 	  ; loading address for sid tune
 
-* = address_sid                         ; address to load the music data
+* = address_sprites                  
+!bin "resources/sprites.spr",1024,3  	 ; skip first three bytes which is encoded Color Information
+										 ; then load 16x64 Bytes from file
+* = address_sid                         
 !bin "resources/empty_1000.sid",, $7c+2  ; remove header from sid and cut off original loading address 
 
-* = address_chars                     ; address to load the charset from
-!bin "resources/rambo_font.ctm",384,24                ; skip first two bytes
+* = address_chars                     
+!bin "resources/rambo_font.ctm",384,24   ; skip first 24 bytes which is CharPad format information 
+

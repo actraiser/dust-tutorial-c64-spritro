@@ -1,80 +1,81 @@
 ;============================================================
-; configuration of sprites used in the intro
-;
-; Ship Sprite first 16*64Bytes of Sprite Location Address
-; Star 1 Sprite next 8x64Bytes after Ship Sprite Location
-; Star 2 Sprite next 8x64Bytes of Star 1 Location
+; configuration of the sprite used in the intro
 ;============================================================
 
-; we need a couple of locations to count down frames
-; for the animation of the Sprite
+
+; two locations will be used to at the one hand store the 
+; current shown frame of the sprite animation and on the other
+; hand to keep track of delay to slow down animation
 
 sprite_ship_current_frame	= $fb
 delay_animation_pointer     = $9e
 
-; the number of frames per sprite are stored here
+; the toal number of frames (shapes) which make up the animation 
 sprite_frames_ship		= 16
 
-; start addresses
+; the sprite pointer for Sprite#0
 sprite_pointer_ship		= address_sprites / $40
 
-; shared sprite colors
+; those are the shared sprite colors
+; we could have parsed that information from the sprites.spr file
+; but for this simple single-sprite demo we can just write it down
+; manually
 sprite_background_color = $00
 sprite_multicolor_1  	= $0b
 sprite_multicolor_2  	= $01
 
-; individual sprite colors (to be defined)
+; individual sprite color for Sprite#0. This is also stored in Byte 64
+; of each Sprite (low nibble) when we use SpritePad. We did not bother
+; to parse this information in this case either.
 sprite_ship_color		= $02
 
-; delay_counter
-delay_counter = $90
+;============================================================
+; Initialize Memory Locations not related to VIC-II registers
+;============================================================
 
 ; initialize counters with frame numbers
 lda #sprite_frames_ship
 sta sprite_ship_current_frame
 
-; store the pointers in the sprite pointer registers for Sprite#0 to Sprite #8
-; we use Sprite#0 for the Ship, Sprite#1-4 for Star_1 and Sprite#5-7 for Star_2
+
+; store the pointer in the sprite pointer register for Sprite#0
+; Sprite Pointers are the last 8 bytes of Screen RAM, e.g. $07f8-$07ff
 lda #sprite_pointer_ship
-sta screen_ram + $3f8
+sta screen_ram + $3f8 		
 
-lda #$01        ; enable Sprite#0
-sta $d015
+;============================================================
+; Initialize involved VIC-II registers
+;============================================================
 
-lda #$01        ; set multicolor Sprite#0
+lda #$01     ; enable Sprite#0
+sta $d015 
+
+lda #$01     ; set multicolor mode for Sprite#0
 sta $d01c
 
 lda #$00     ; Sprite#0 has priority over background
 sta $d01b
 
-; set X-Coord high bit (9th Bit) for Sprite#0
-lda #$01
+lda #$01	 ; set X-Coord high bit (9th Bit) for Sprite#0
 sta $d010
 
-; shared colors 
-lda #sprite_background_color
+lda #sprite_background_color ; shared background color
 sta $d021
-lda #sprite_multicolor_1
+
+lda #sprite_multicolor_1 	 ; shared multicolor 1
 sta $d025
-lda #sprite_multicolor_2
+
+lda #sprite_multicolor_2 	 ; shared multicolor 2
 sta $d026
 
-; individual color Sprite#0
-lda #sprite_ship_color
+lda #sprite_ship_color 	 	 ; individual Sprite#0 color
 sta $d027
 
-; load our delay animation byte with $00
-lda #$00
-sta delay_animation_pointer
+lda #$a0 	; set Sprite#ß positions with X/Y coords to
+sta $d000   ; about middle of the screen on the outer right
+lda #$ff    ; $d000 corresponds to X-Coord (0-504 on PAL systems)
+sta $d001   ; $d001 corresponds to Y-Coord (0-255 on PAL systems)
 
-; another delay counter gets inititalized
-lda #$01
-sta delay_counter
 
-; initial sprite positions with X/Y coords 
-; about middle of the screen on the outer right
-lda #$a0
-sta $d000
-lda #$ff
-sta $d001
+
 

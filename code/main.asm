@@ -2,13 +2,17 @@
 ; main.asm triggers all sub routines and runs the Interrupt Routine
 ;==================================================================
 
-* = main_address      ; main_address was set after the last configuration file
-
 main      sei         ; set interrupt disable flag
 
           jsr clear_screen     ; clear the screen
           jsr init_sid         ; init music routine 
           jsr write_text       ; write two lines of text
+
+          lda #$00                    ; load our delay animation byte with #$00
+          sta delay_animation_pointer ; we EOR against #$01 to flip between colors later
+
+          lda #$01             ; initialize delay_counter for
+          sta delay_counter    ; side-borders color switching
 
           ldy #$7f    ; $7f = %01111111
           sty $dc0d   ; Turn off CIAs Timer interrupts ($7f = %01111111)
