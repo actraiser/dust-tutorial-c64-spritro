@@ -8,7 +8,7 @@
 ; hand to keep track of delay to slow down animation
 
 sprite_ship_current_frame	= $fb
-delay_animation_pointer     = $9e
+delay_animation_pointer     = $fc
 
 ; the toal number of frames (shapes) which make up the animation 
 sprite_frames_ship		= 16
