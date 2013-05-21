@@ -54,18 +54,18 @@ irq        dec $d019          ; acknowledge IRQ / clear register for next interr
 ; Open Top/Bottom borders
 ;=============================
 
-           lda #$00       ; clear garbage in $3fff
+           lda #$00       ; clear potential garbage in $3fff
            sta $3fff
 
-           lda #$f9       ; wait until scanline 249
+           lda #$f9       ; wait until Raster Line 249
            cmp $d012
            bne *-3
 
-           lda $d011      ; Trick the VIC and open the border!!
+           lda $d011      ; Trick the VIC and open the border
            and #$f7
            sta $d011
 
-           lda #$ff       ; Wait until scanline 255
+           lda #$ff       ; Wait until Raster Line 255
            cmp $d012
            bne *-3
 
