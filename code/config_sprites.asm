@@ -56,9 +56,6 @@ sta $d01c
 lda #$00     ; Sprite#0 has priority over background
 sta $d01b
 
-lda #$01	 ; set X-Coord high bit (9th Bit) for Sprite#0
-sta $d010
-
 lda #sprite_background_color ; shared background color
 sta $d021
 
@@ -71,9 +68,12 @@ sta $d026
 lda #sprite_ship_color 	 	 ; individual Sprite#0 color
 sta $d027
 
-lda #$a0 	; set Sprite#ß positions with X/Y coords to
-sta $d000   ; about middle of the screen on the outer right
-lda #$ff    ; $d000 corresponds to X-Coord (0-504 on PAL systems)
+lda #$01     ; set X-Coord high bit (9th Bit) for Sprite#0
+sta $d010
+
+lda #$a0 	; set Sprite#0 positions with X/Y coords to
+sta $d000   ; lower right of the screen
+lda #$ff    ; $d000 corresponds to X-Coord (0-504 incl 9th Bit on PAL systems)
 sta $d001   ; $d001 corresponds to Y-Coord (0-255 on PAL systems)
 
 

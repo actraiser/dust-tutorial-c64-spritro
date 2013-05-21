@@ -1,12 +1,13 @@
-;==================================================================
-; main.asm triggers all sub routines and runs the Interrupt Routine
-;==================================================================
+;===================================
+; main.asm triggers all subroutines 
+; and runs the Interrupt Routine
+;===================================
 
-main      sei         ; set interrupt disable flag
+main      sei               ; set interrupt disable flag
 
-          jsr clear_screen     ; clear the screen
-          jsr init_sid         ; init music routine 
-          jsr write_text       ; write two lines of text
+          jsr clear_screen  ; clear the screen
+          jsr init_sid      ; init music routine 
+          jsr write_text    ; write three lines of text
 
           lda #$00                    ; load our delay animation byte with #$00
           sta delay_animation_pointer ; we EOR against #$01 to flip between colors later
@@ -23,10 +24,6 @@ main      sei         ; set interrupt disable flag
           lda #$01    ; Set Interrupt Request Mask...
           sta $d01a   ; ...we want IRQ by Rasterbeam (%00000001)
 
-          lda $d011   ; Bit#0 of $d011 indicates if we have passed raster line 255
-          and #$7f    ; it is basically the 9th Bit for $d012
-          sta $d011   ; we need to make sure it is set to zero for our intro.
-
           lda #<irq   ; point IRQ Vector to our custom irq routine
           ldx #>irq 
           sta $0314    ; store in $314/$315
@@ -42,42 +39,38 @@ main      sei         ; set interrupt disable flag
           jmp *       ; infinite loop
 
 
-;============================================================
-;    Our custom interrupt routines 
-;============================================================
+;================================
+; Our custom interrupt routines 
+;================================
 
-irq        dec $d019        ; acknowledge IRQ / clear register for next interrupt
+irq        dec $d019          ; acknowledge IRQ / clear register for next interrupt
            jsr color_cycle    ; put color cycle on text
-           jsr play_sid     ; jump to play music routine
-           jsr update_ship      ; move ship
+           jsr play_sid       ; jump to play music routine
+           jsr update_ship    ; move ship
            jsr check_keyboard ; check keyboard controls
 
 
-;============================================================
-;    Open Top/Bottom borders
-;============================================================
+;=============================
+; Open Top/Bottom borders
+;=============================
 
-           lda #$00
+           lda #$00       ; clear garbage in $3fff
            sta $3fff
 
-        ; Wait until scanline 249
-           lda #$f9
+           lda #$f9       ; wait until scanline 249
            cmp $d012
            bne *-3
 
-        ; Trick the VIC and open the border!!
-           lda $d011
+           lda $d011      ; Trick the VIC and open the border!!
            and #$f7
            sta $d011
 
-        ; Wait until scanline 255
-           lda #$ff
+           lda #$ff       ; Wait until scanline 255
            cmp $d012
            bne *-3
 
-        ; Reset bit 3 for the next frame
-           lda $d011
+           lda $d011      ; Reset bit 3 for the next frame
            ora #$08
            sta $d011
 
-           jmp $ea31 ; return to Kernel routine
+           jmp $ea31      ; return to Kernel routine
