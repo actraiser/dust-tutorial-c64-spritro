@@ -19,3 +19,6 @@ screen_ram = $0400		; location of screen ram
 init_sid = $11ed      	; init routine for music
 play_sid = $1004      	; play music routine
 delay_counter = $90 	; used to time color switch in the border
+
+lda #$00 				; initialize delay_counter
+sta delay_counter
