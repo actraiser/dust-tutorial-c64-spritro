@@ -3,9 +3,9 @@
 ; ship to get the next color 
 ; 2. Slower Color cycle over side boarders 
 ;============================================================
- 
+
 color_cycle     ldx #$00 		; init counter for column
- 			
+
 color_init      lda sprite_ship_current_frame  ; load ship sprite pointer value...
     										   ; ...which is always between $00-$0f
 		        cmp #$0f 		; when its #$0f we skip addition of 1 
@@ -33,5 +33,5 @@ border_color    lda $d020        ; load border color
 			    eor #$08         ; flip between blue and light blue
                 sta $d020        ; store new bordercolor
                 lda #$00         ; reset delay counter
-			    sta delay_counter
-			    rts
+                sta delay_counter
+                rts
