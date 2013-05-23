@@ -1,5 +1,5 @@
 ;============================================================
-; set character set pointer to our custom set, turn off 
+; sets character pointer to our new custom set, turn off 
 ; multicolor for characters, then output three lines of text
 ;============================================================
 

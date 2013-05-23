@@ -1,7 +1,7 @@
 ;============================================================
 ; 1. color cycle over text using the sprite pointer of the 
 ; ship to get the next color 
-; 2. Slower Color cycle over side boarders 
+; 2. Slower Color cycle over side boarders using delay_counter 
 ;============================================================
 
 color_cycle     ldx #$00 		; init counter for column

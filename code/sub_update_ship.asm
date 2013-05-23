@@ -1,6 +1,6 @@
 ;============================================================
-; Updates horizontal position and frame position within 
-; animation of the Sprite#0 - Sprite moves from right to left
+; Updates horizontal position and Sprite Shape number within 
+; animation of Sprite#0 - Sprite moves from right to left
 ;============================================================
  
 ship_x_high         lda $d010                      ; load 9th Bit
